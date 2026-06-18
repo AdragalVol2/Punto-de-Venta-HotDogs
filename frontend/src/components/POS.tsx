@@ -4,7 +4,12 @@ import ProductCard from "./ProductCard";
 import CartSidebar from "./CartSidebar";
 
 export default function POS() {
-    const { cart, addToCart, updateCartItem, removeItem, total } = useCart();
+    const { cart, addToCart, updateCartItem, removeItem, clearCart, total } = useCart();
+
+    const handleCheckout = () => {
+        alert('¡Venta registrada con éxito!');
+        clearCart();
+    };
 
     return (
         <div className="h-screen bg-slate-100 flex overflow-hidden">
@@ -34,6 +39,7 @@ export default function POS() {
                 total={total}
                 onRemove={removeItem}
                 onUpdateItem={updateCartItem}
+                onCheckout={handleCheckout}
             />
 
         </div>
