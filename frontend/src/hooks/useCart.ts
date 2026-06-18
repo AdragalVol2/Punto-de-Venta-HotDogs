@@ -88,13 +88,20 @@ export function useCart() {
         );
     };
 
+    const clearCart = () => {
+        setCart([]);
+    };
+
     const total = cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
     return {
         cart,
         addToCart,
         updateCartItem,
+        clearCart,
         removeItem,
         total,
     };
+
+
 }

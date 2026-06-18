@@ -1,16 +1,19 @@
 import { useState } from "react";
 import type { CartItem, Ingredient } from "../types";
 import EditItemModal from "./EditItemModal";
+import CheckoutModal from "./CheckoutModal";
 
 interface CartSidebarProps {
     cart: CartItem[];
     total: number;
     onRemove: (id: string) => void;
     onUpdateItem: (oldId: string, ingredients: Ingredient[], comments: string) => void;
+    onCheckout: () => void;
 }
 
-export default function CartSidebar({ cart, total, onRemove, onUpdateItem }: CartSidebarProps) {
+export default function CartSidebar({ cart, total, onRemove, onUpdateItem, onCheckout }: CartSidebarProps) {
     const [editingItem, setEditingItem] = useState<CartItem | null>(null);
+    const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
     return (
         <div className="w-1/3 bg-white border-l border-slate-200 flex flex-col relative">
@@ -20,6 +23,17 @@ export default function CartSidebar({ cart, total, onRemove, onUpdateItem }: Car
                     item={editingItem}
                     onClose={() => setEditingItem(null)}
                     onSave={onUpdateItem}
+                />
+            )}
+            {/* Modal de Cobro */}
+            {isCheckoutOpen && (
+                <CheckoutModal
+                    total={total}
+                    onClose={() => setIsCheckoutOpen(false)}
+                    onConfirm={() => {
+                        onCheckout();
+                        setIsCheckoutOpen(false);
+                    }}
                 />
             )}
 
@@ -78,7 +92,12 @@ export default function CartSidebar({ cart, total, onRemove, onUpdateItem }: Car
                     <span>Total</span>
                     <span>${total}</span>
                 </div>
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-xl font-semibold transition shadow-md hover:shadow-lg">
+                <button
+                    onClick={() => setIsCheckoutOpen(true)}
+                    disabled={cart.length === 0}
+                    className={`w-full py-4 rounded-xl font-semibold transition shadow-md hover:shadow-lg ${cart.length > 0 ? 'bg-orange-500 hover:bg-orange-600 text-white' : 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                        }`}
+                >
                     Cobrar Pedido
                 </button>
             </div>
