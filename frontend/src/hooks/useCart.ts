@@ -98,8 +98,11 @@ export function useCart() {
         cart,
         addToCart,
         updateCartItem,
+        clearCart,
         removeItem,
         clearCart,
         total,
     };
+
+
 }

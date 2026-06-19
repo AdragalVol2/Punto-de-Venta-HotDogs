@@ -1,9 +1,10 @@
+// 1. Agregamos las categorías permitidas
 export type Category = 'Todos' | 'Dogos' | 'Complementos' | 'Bebidas';
 
 export interface Ingredient {
     id: number;
     name: string;
-    quantity: number; // 0 = Sin, 1 = Normal, 2 = Extra, etc.
+    quantity: number;
 }
 
 export interface Product {
@@ -13,11 +14,11 @@ export interface Product {
     price: number;
     image: string;
     category: Category;
-    defaultIngredients: Ingredient[]; //ingredientes base del producto
+    defaultIngredients: Ingredient[];
 }
 
 export interface CartItem {
-    cartItemId: string; //ID único que combina el producto y sus modificaciones
+    cartItemId: string;
     product: Product;
     quantity: number;
     ingredients: Ingredient[];
