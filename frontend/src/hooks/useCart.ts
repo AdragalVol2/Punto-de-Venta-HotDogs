@@ -100,6 +100,7 @@ export function useCart() {
         updateCartItem,
         clearCart,
         removeItem,
+        clearCart,
         total,
     };
 

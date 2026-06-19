@@ -8,7 +8,7 @@ interface CartSidebarProps {
     total: number;
     onRemove: (id: string) => void;
     onUpdateItem: (oldId: string, ingredients: Ingredient[], comments: string) => void;
-    onCheckout: () => void;
+    onCheckout: () => void; // <-- ESTA ES LA PIEZA QUE FALTABA
 }
 
 export default function CartSidebar({ cart, total, onRemove, onUpdateItem, onCheckout }: CartSidebarProps) {
@@ -17,7 +17,8 @@ export default function CartSidebar({ cart, total, onRemove, onUpdateItem, onChe
 
     return (
         <div className="w-1/3 bg-white border-l border-slate-200 flex flex-col relative">
-            {/* Modal condicional */}
+
+            {/* Modal de Edición */}
             {editingItem && (
                 <EditItemModal
                     item={editingItem}
@@ -25,6 +26,7 @@ export default function CartSidebar({ cart, total, onRemove, onUpdateItem, onChe
                     onSave={onUpdateItem}
                 />
             )}
+
             {/* Modal de Cobro */}
             {isCheckoutOpen && (
                 <CheckoutModal
@@ -43,7 +45,9 @@ export default function CartSidebar({ cart, total, onRemove, onUpdateItem, onChe
 
             <div className="flex-1 overflow-y-auto p-4">
                 {cart.length === 0 ? (
-                    <div className="h-full flex items-center justify-center text-slate-400">No hay productos agregados</div>
+                    <div className="h-full flex items-center justify-center text-slate-400">
+                        No hay productos agregados
+                    </div>
                 ) : (
                     <div className="space-y-3">
                         {cart.map((item) => (
@@ -52,7 +56,6 @@ export default function CartSidebar({ cart, total, onRemove, onUpdateItem, onChe
                                     <div className="flex-1 pr-2">
                                         <h4 className="font-bold text-slate-800">{item.product.name}</h4>
 
-                                        {/* modificaciones de ingredientes */}
                                         <div className="text-sm text-slate-500 mt-1">
                                             {item.ingredients.map(ing => {
                                                 if (ing.quantity === 0) return <p key={ing.id} className="text-red-500">- Sin {ing.name.toLowerCase()}</p>;
@@ -92,6 +95,7 @@ export default function CartSidebar({ cart, total, onRemove, onUpdateItem, onChe
                     <span>Total</span>
                     <span>${total}</span>
                 </div>
+
                 <button
                     onClick={() => setIsCheckoutOpen(true)}
                     disabled={cart.length === 0}

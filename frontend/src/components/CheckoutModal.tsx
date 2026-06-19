@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// AQUÍ ESTÁ LA CLAVE: Definir qué recibe el modal
 interface CheckoutModalProps {
     total: number;
     onClose: () => void;
@@ -12,7 +13,6 @@ export default function CheckoutModal({ total, onClose, onConfirm }: CheckoutMod
 
     const change = typeof receivedAmount === 'number' ? receivedAmount - total : 0;
 
-    // El pago es válido si es con tarjeta, o si es efectivo y nos dieron igual o más dinero que el total
     const isPaymentValid = method === 'tarjeta' || (typeof receivedAmount === 'number' && receivedAmount >= total);
 
     const handleQuickBill = (amount: number) => {
@@ -32,7 +32,6 @@ export default function CheckoutModal({ total, onClose, onConfirm }: CheckoutMod
                     <p className="text-4xl font-bold text-orange-600">${total}</p>
                 </div>
 
-                {/* Métodos de pago */}
                 <div className="flex gap-3 mb-6">
                     <button
                         onClick={() => setMethod('efectivo')}
@@ -50,7 +49,6 @@ export default function CheckoutModal({ total, onClose, onConfirm }: CheckoutMod
                     </button>
                 </div>
 
-                {/* Lógica si es efectivo */}
                 {method === 'efectivo' && (
                     <div className="space-y-4 mb-6">
                         <div>
@@ -87,7 +85,6 @@ export default function CheckoutModal({ total, onClose, onConfirm }: CheckoutMod
                     </div>
                 )}
 
-                {/* Botones de acción */}
                 <div className="flex gap-3">
                     <button onClick={onClose} className="flex-1 py-3 rounded-xl font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
                         Cancelar
