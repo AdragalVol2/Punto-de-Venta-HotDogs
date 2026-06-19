@@ -1,3 +1,5 @@
+export type Category = 'Todos' | 'Dogos' | 'Complementos' | 'Bebidas';
+
 export interface Ingredient {
     id: number;
     name: string;
@@ -10,6 +12,7 @@ export interface Product {
     description: string;
     price: number;
     image: string;
+    category: Category;
     defaultIngredients: Ingredient[]; //ingredientes base del producto
 }
 

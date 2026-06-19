@@ -7,6 +7,7 @@ export const products: Product[] = [
         description: "Salchicha, tomate, cebolla y aderezos.",
         price: 55,
         image: "",
+        category: 'Dogos',
         defaultIngredients: [
             { id: 1, name: "Salchicha", quantity: 1 },
             { id: 2, name: "Tomate", quantity: 1 },
