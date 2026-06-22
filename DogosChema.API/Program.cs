@@ -12,7 +12,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        // Cambia este puerto si tu React está corriendo en uno distinto (ej. 3000)
+        // Cambia este puerto si tu React estï¿½ corriendo en uno distinto (ej. 3000)
         policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
               .AllowAnyMethod();
@@ -20,9 +20,12 @@ builder.Services.AddCors(options =>
 });
 
 // --- 3. Agregar soporte para Controladores ---
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
-// OpenAPI para documentación
+// OpenAPI para documentaciï¿½n
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -54,7 +57,7 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ocurrió un error al sembrar los datos.");
+        logger.LogError(ex, "Ocurriï¿½ un error al sembrar los datos.");
     }
 }
 
